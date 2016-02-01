@@ -48,7 +48,9 @@ do
 					echo "	option Port '22'" >> /etc/config/dropbear;
 					echo "	option enable 'on'" >> /etc/config/dropbear;
 					ln -s /etc/config/dropbear /etc/rc.d/S39dropbear
-					sed -i "/exit 0/i\sed -i 's/1022/22/g' /etc/config/dropbear\n/etc/init.d/dropbear enable\n/etc/init.d/dropbear start" /etc/rc.local
+					sed -i "/exit 0/i\sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local
+					sed -i "/exit 0/i\/etc/init.d/dropbear enable" /etc/rc.local
+					sed -i "/exit 0/i\/etc/init.d/dropbear start" /etc/rc.local
 					echo "/etc/rc.local" > /etc/sysupgrade.conf;
 					echo "/etc/config/dropbear" >> /etc/sysupgrade.conf;
 					echo "/etc/rc.d/S39dropbear" >> /etc/sysupgrade.conf;
