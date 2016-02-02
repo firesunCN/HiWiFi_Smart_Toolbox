@@ -47,23 +47,30 @@ do
 					echo "	option RootPasswordAuth 'on'" >> /etc/config/dropbear;
 					echo "	option Port '22'" >> /etc/config/dropbear;
 					echo "	option enable 'on'" >> /etc/config/dropbear;
-					ln -s /etc/config/dropbear /etc/rc.d/S39dropbear
-					sed -i "/exit 0/i\sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local
-					sed -i "/exit 0/i\/etc/init.d/dropbear enable" /etc/rc.local
-					sed -i "/exit 0/i\/etc/init.d/dropbear start" /etc/rc.local
+					ln -s /etc/config/dropbear /etc/rc.d/S39dropbear > /dev/null 2>&1
+					grep -q "sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local || sed -i "/exit 0/i\sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local
+					grep -q "/etc/init.d/dropbear enable" /etc/rc.local || sed -i "/exit 0/i\/etc/init.d/dropbear enable" /etc/rc.local
+					grep -q "/etc/init.d/dropbear start" /etc/rc.local || sed -i "/exit 0/i\/etc/init.d/dropbear start" /etc/rc.local
 					echo "/etc/rc.local" > /etc/sysupgrade.conf;
 					echo "/etc/config/dropbear" >> /etc/sysupgrade.conf;
 					echo "/etc/rc.d/S39dropbear" >> /etc/sysupgrade.conf;
 					echo "/etc/sysupgrade.conf" >> /etc/sysupgrade.conf;
 					echo "/lib/upgrade/keep.d/firesun" >> /etc/sysupgrade.conf;
-					echo "/lib/upgrade/hiwifi.sh" >> /etc/sysupgrade.conf;
+					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+						echo "/lib/upgrade/hiwifi.sh" >> /etc/sysupgrade.conf;
+					fi
 					echo "/etc/rc.local" > /lib/upgrade/keep.d/firesun;
 					echo "/etc/config/dropbear" >> /lib/upgrade/keep.d/firesun;
 					echo "/etc/rc.d/S39dropbear" >> /lib/upgrade/keep.d/firesun;
 					echo "/etc/sysupgrade.conf" >> /lib/upgrade/keep.d/firesun;
 					echo "/lib/upgrade/keep.d/firesun" >> /lib/upgrade/keep.d/firesun;
-					echo "/lib/upgrade/hiwifi.sh" >> /lib/upgrade/keep.d/firesun;
-									
+					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+						echo "/lib/upgrade/hiwifi.sh" >> /lib/upgrade/keep.d/firesun;
+					fi
+					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+						sed -i 's/upgrade_boot=1/upgrade_boot=0/g' /lib/upgrade/hiwifi.sh
+					fi
+					
 					echo "保root不升uboot成功"
 					echo "如更新了系统，建议重做此操作（保险起见）"
 
