@@ -56,7 +56,7 @@ do
 					echo "/etc/rc.d/S39dropbear" >> /etc/sysupgrade.conf;
 					echo "/etc/sysupgrade.conf" >> /etc/sysupgrade.conf;
 					echo "/lib/upgrade/keep.d/firesun" >> /etc/sysupgrade.conf;
-					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+					if [ -f "/lib/upgrade/hiwifi.sh" ]; then
 						echo "/lib/upgrade/hiwifi.sh" >> /etc/sysupgrade.conf;
 					fi
 					echo "/etc/rc.local" > /lib/upgrade/keep.d/firesun;
@@ -64,10 +64,10 @@ do
 					echo "/etc/rc.d/S39dropbear" >> /lib/upgrade/keep.d/firesun;
 					echo "/etc/sysupgrade.conf" >> /lib/upgrade/keep.d/firesun;
 					echo "/lib/upgrade/keep.d/firesun" >> /lib/upgrade/keep.d/firesun;
-					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+					if [ -f "/lib/upgrade/hiwifi.sh" ]; then
 						echo "/lib/upgrade/hiwifi.sh" >> /lib/upgrade/keep.d/firesun;
 					fi
-					if [ ! -f "/lib/upgrade/hiwifi.sh" ]; then
+					if [ -f "/lib/upgrade/hiwifi.sh" ]; then
 						sed -i 's/upgrade_boot=1/upgrade_boot=0/g' /lib/upgrade/hiwifi.sh
 					fi
 					
