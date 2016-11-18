@@ -47,7 +47,7 @@ do
 					echo "	option RootPasswordAuth 'on'" >> /etc/config/dropbear;
 					echo "	option Port '22'" >> /etc/config/dropbear;
 					echo "	option enable 'on'" >> /etc/config/dropbear;
-					ln -s /etc/config/dropbear /etc/rc.d/S39dropbear > /dev/null 2>&1
+					ln -s /etc/init.d/dropbear /etc/rc.d/S39dropbear > /dev/null 2>&1
 					grep -q "sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local || sed -i "/exit 0/i\sed -i 's/1022/22/g' /etc/config/dropbear" /etc/rc.local
 					grep -q "/etc/init.d/dropbear enable" /etc/rc.local || sed -i "/exit 0/i\/etc/init.d/dropbear enable" /etc/rc.local
 					grep -q "/etc/init.d/dropbear start" /etc/rc.local || sed -i "/exit 0/i\/etc/init.d/dropbear start" /etc/rc.local
